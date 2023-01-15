@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
+import { useDispatch } from "react-redux";
+import { logout } from '../features/userSlice'
 
 
 const Home = () => {
@@ -169,12 +171,20 @@ const Home = () => {
           console.log(formData);
      };
 
+     const dispatch = useDispatch()
+
+     const handleLogout= (e) => {
+          e.preventDefault()
+          dispatch(logout())
+     }
+
      return (
           <>
                <div className="py-10 px-5">
                     <h1 className="text-3xl font-semibold text-center">
                          Simple KYC Form with CSV Data Storage
                     </h1>
+                    <button onClick={handleLogout} className="absolute right-10 top-10 py-2 px-5 bg-sky-700 text-white rounded-lg">Logout</button>
 
 
                     <div className="bg-slate-100 py-10 px-5 lg:px-10 lg:w-1/2 md:w-2/3 mx-auto mt-10 rounded-lg space-y-3">
@@ -596,6 +606,7 @@ const Home = () => {
                               </div>
                          }
                     </div>
+                    
                </div>
 
 

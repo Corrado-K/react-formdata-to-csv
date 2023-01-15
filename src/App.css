@@ -5,3 +5,10 @@
 * {
   font-family: "Poppins";
 }
+
+.bg-techy{
+  background-image: linear-gradient( rgba(0, 0, 0, 0.70), rgba(0,0,0,.70) ), url('./assets/techy.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
