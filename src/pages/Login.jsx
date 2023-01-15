@@ -37,9 +37,9 @@ const LoginPage = () => {
                     {/* <h1 className="text-4xl font-semibold text-white">KYC FORM</h1> */}
                </div>
                <div className="flex items-center justify-center relative">
-                    <div className="block w-[45%]">
+                    <div className="block w-[50%]">
                          <h2 className="text-2xl font-medium">Login</h2>
-                         <h4 className="text-md font-light text-gray-500">Please log in to access the KYC form</h4>
+                         <h4 className="text-sm font-medium text-gray-500">Please log in to access the KYC form</h4>
                          <div className="mt-12">
                               <form onSubmit={(e) => handleSubmit(e)}>
                                    <div className="mb-5">
@@ -120,7 +120,7 @@ const LoginPage = () => {
 
                     </div>
                     {/* <div className="w-[45%]"></div> */}
-                    <div className="absolute ml-[27.5%] w-[45%] left-0 bottom-3">
+                    <div className="absolute ml-[25%] w-[50%] left-0 bottom-3">
                          <p className="text-left text-xs font-light text-gray-500"> &copy; Created by Kebede ⭐❄️</p>
                     </div>
 

@@ -14,14 +14,16 @@ function App() {
           <div>
                <Router>
                     <Routes>
-                         <Route index element={user?<Home /> : <LoginPage />} />
+                         {/* <Route index element={<LoginPage />} />  */}
+
+                         <Route path='/' element={user?<Home /> : <LoginPage />} />
                          {
                               // user.loggedIn ?
                               // <Route path='/home' element={<Home />} />
                               // :
-                              // <Route index element={<LoginPage />} /> 
-                              
+                              // <Redirect to="/" />
                          }
+                         
                     </Routes>
                </Router>
                {/* {user ? <Home /> : <LoginPage />} */}
