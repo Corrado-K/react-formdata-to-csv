@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
-import { useDispatch } from "react-redux";
-import { logout } from '../features/userSlice'
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from '../features/userSlice'
 
 
 const Home = () => {
@@ -178,16 +178,19 @@ const Home = () => {
           dispatch(logout())
      }
 
+     const user = useSelector(selectUser)
+
      return (
           <>
                <div className="py-10 px-5">
                     <h1 className="text-3xl font-semibold text-center">
                          Simple KYC Form with CSV Data Storage
                     </h1>
+                    <p className="text-center mt-3">Welcome <span className="font-semibold text-blue-800">{user.username}</span>. Please fill this KYC form with you details</p>
                     <button onClick={handleLogout} className="absolute right-10 top-10 py-2 px-5 bg-sky-700 text-white rounded-lg">Logout</button>
 
 
-                    <div className="bg-slate-100 py-10 px-5 lg:px-10 lg:w-1/2 md:w-2/3 mx-auto mt-10 rounded-lg space-y-3">
+                    <div className="bg-slate-100 py-10 px-5 lg:px-10 lg:w-1/2 md:w-2/3 mx-auto mt-8 rounded-lg space-y-3">
                          <div className="lg:grid lg:grid-cols-2 lg:gap-5 lg:space-y-0 space-y-3 ">
                               <div>
                                    <label className="text-lg">First Name <span className="text-red-600">*</span></label>
