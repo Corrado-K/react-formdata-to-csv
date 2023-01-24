@@ -79,6 +79,7 @@ const Home = () => {
                .then((response) => response.json())
                .then((data) => {
                     setCountries(data);
+                    console.log(data);
                });
      }, []);
 
@@ -186,7 +187,7 @@ const Home = () => {
                     <h1 className="text-3xl font-semibold text-center">
                          Simple KYC Form with CSV Data Storage
                     </h1>
-                    <p className="text-center mt-3">Welcome <span className="font-semibold text-blue-800">{user.username}</span>. Please fill this KYC form with you details</p>
+                    <p className="text-center mt-3">Welcome <span className="font-semibold text-sky-700">{user.username}</span>. Please fill this KYC form with you details</p>
                     <button onClick={handleLogout} className="absolute right-10 top-10 py-2 px-5 bg-sky-700 text-white rounded-lg">Logout</button>
 
 

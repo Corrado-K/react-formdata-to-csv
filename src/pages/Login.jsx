@@ -39,7 +39,7 @@ const LoginPage = () => {
                <div className="flex items-center justify-center relative">
                     <div className="block w-[50%]">
                          <h2 className="text-2xl font-medium">Login</h2>
-                         <h4 className="text-sm font-medium text-gray-500">Please log in to access the KYC form</h4>
+                         <h4 className="text-sm font-medium text-sky-700">Please log in to access the KYC form</h4>
                          <div className="mt-12">
                               <form onSubmit={(e) => handleSubmit(e)}>
                                    <div className="mb-5">
