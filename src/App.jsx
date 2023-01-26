@@ -1,6 +1,7 @@
 import "./App.css";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginPage from "./pages/Login";
 import { useSelector } from "react-redux";
@@ -10,24 +11,26 @@ function App() {
 
      const user = useSelector(selectUser)
 
-     return (
-          <div>
-               <Router>
-                    <Routes>
-                         {/* <Route index element={<LoginPage />} />  */}
+     let routes = useRoutes([
+          {
+               path: '/',
+               element: <LoginPage />
+          },
+          {
+               path: '/home',
+               element: <LoginPage />
+          },
+     ])
 
-                         <Route path='/' element={user?<Home /> : <LoginPage />} />
-                         {
-                              // user.loggedIn ?
-                              // <Route path='/home' element={<Home />} />
-                              // :
-                              // <Redirect to="/" />
-                         }
-                         
-                    </Routes>
-               </Router>
-               {/* {user ? <Home /> : <LoginPage />} */}
-          </div>
+     return (
+          // <div>
+          //      <Router>
+          //           <Routes>
+          //                <Route path='/' element={user?<Home /> : <LoginPage />} />
+          //           </Routes>
+          //      </Router>
+          // </div>
+          routes
      );
 }
 
