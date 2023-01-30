@@ -1,35 +1,29 @@
+import { useContext } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { login } from '../features/userSlice'
+import { AuthContext } from "../context/AuthContext";
+import { useEffect } from "react";
+import { json } from "react-router-dom";
+
 
 const LoginPage = () => {
 
+     const { login } = useContext(AuthContext)
+
      const [loginData, setLoginData] = useState({
-          username:'',
-          password:''
-     });
-
-     const [hasError, setHasError] = useState(false);
-
-     const dispatch = useDispatch();
+          username:"",
+          password:""
+     })
 
      const handleSubmit = (e) => {
           e.preventDefault()
-
-          if (loginData.username && loginData.password) {
-               dispatch(
-                    login({
-                         username: loginData.username,
-                         password: loginData.password,
-                         loggedIn: true
-                    })
-               )     
-          }else{
-               setHasError(true)
-          }
-
           
+          login(loginData)
      }
+
+     // console.log(user);
+     // console.log(JSON.parse(localStorage.getItem('user')));
+
+    
           
      return ( 
           <div className="w-screen h-screen grid grid-cols-2">
@@ -47,44 +41,23 @@ const LoginPage = () => {
                                         <input
                                              type="text"
                                              className="p-2 w-full mx-auto border-2 rounded-lg border-blue-400"
-                                             // className={`p-3 w-full mx-auto border-2 rounded-lg ${
-                                             //      fieldError.otherName === true
-                                             //            " block border-red-400"
-                                             //           : " border-blue-400"
-                                             // } `}
+                                             
                                              name="username"
                                              onChange={(e) =>
-                                                  // (loginData.username = e.target.value)
                                                   setLoginData({
                                                        ...loginData, // copy the old data
                                                        username: e.target.value // but override the value for the username
                                                   })
                                              }
-                                             // onChange={(e) =>
-                                             //      (loginData.username = e.target.value)
-                                             // }
 
                                         />
-                                        {/* <span
-                                             className={`${
-                                                  fieldError.otherName
-                                                       ? "block text-red-600"
-                                                       : "hidden"
-                                             }`}
-                                        >
-                                             {error}
-                                        </span> */}
+                                        
                                    </div>
                                    <div>
                                         <label className="text-md">Password</label>
                                         <input
                                              type="password"
                                              className="p-2 w-full mx-auto border-2 rounded-lg border-blue-400"
-                                             // className={`p-3 w-full mx-auto border-2 rounded-lg ${
-                                             //      fieldError.otherName === true
-                                             //            " block border-red-400"
-                                             //           : " border-blue-400"
-                                             // } `}
                                              name="password"
                                              
                                              onChange={(e) =>
@@ -93,25 +66,10 @@ const LoginPage = () => {
                                                        password: e.target.value // but override the value for the username
                                                   })
                                              }
-                                             // onChange={(e) =>
-                                             //      (loginData.password = e.target.value)
-                                             // }
 
                                         />
-                                        {/* <span
-                                             className={`${
-                                                  fieldError.otherName
-                                                       ? "block text-red-600"
-                                                       : "hidden"
-                                             }`}
-                                        >
-                                             {error}
-                                        </span> */}
                                    </div>
-                                   {
-                                        hasError && 
-                                             <p className="text-red-500 my-5">Please fill all field before submitting</p>
-                                   }
+                                   
                                    <div className="my-16 w-full flex justify-center items-center">
                                         <button type="submit" className="bg-sky-600 px-10 py-3 w-full mx-auto border-2 rounded-lg text-white">Login</button>
                                    </div>

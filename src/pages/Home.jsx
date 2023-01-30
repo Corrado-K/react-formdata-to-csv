@@ -1,12 +1,16 @@
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectUser } from '../features/userSlice'
+import { AuthContext } from "../context/AuthContext";
+// import { useDispatch, useSelector } from "react-redux";
+// import { logout, selectUser } from '../features/userSlice'
 
 
 const Home = () => {
      const error = "Input should be at least 3 characters";
      const requiredError = "Please make sure required fields are filled";
+
+     const { user, logout } = useContext(AuthContext)
      const [hasError, setHasError] = useState(false);
      
      const [dataLoaded, setdataLoaded] = useState(false);
@@ -172,14 +176,15 @@ const Home = () => {
           console.log(formData);
      };
 
-     const dispatch = useDispatch()
+     // const dispatch = useDispatch()
 
      const handleLogout= (e) => {
           e.preventDefault()
-          dispatch(logout())
+          // dispatch(logout())
+          logout();
      }
 
-     const user = useSelector(selectUser)
+     // const user = useSelector(selectUser)
 
      return (
           <>
@@ -187,7 +192,7 @@ const Home = () => {
                     <h1 className="text-3xl font-semibold text-center">
                          Simple KYC Form with CSV Data Storage
                     </h1>
-                    <p className="text-center mt-3">Welcome <span className="font-semibold text-sky-700">{user.username}</span>. Please fill this KYC form with you details</p>
+                    <p className="text-center mt-3">Welcome <span className="font-semibold text-sky-700">{user ? user.username : "Error"}</span>. Please fill this KYC form with you details</p>
                     <button onClick={handleLogout} className="absolute right-10 top-10 py-2 px-5 bg-sky-700 text-white rounded-lg">Logout</button>
 
 

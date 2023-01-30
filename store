@@ -1,0 +1,58 @@
+const initialState = {
+  user: null
+};
+
+const AuthContext = React.createContext(initialState);
+
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(initialState.user);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
+  const login = (user) => {
+    setUser(user);
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+const App = () => {
+  const { user, login, logout } = useContext(AuthContext);
+
+  return (
+    <div>
+      {user ? (
+        <>
+          <p>Welcome, {user.username}</p>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        <button onClick={() => login({ username: "john" })}>Login</button>
+      )}
+    </div>
+  );
+};
+
+ReactDOM.render(
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
+  document.getElementById("root")
+);
