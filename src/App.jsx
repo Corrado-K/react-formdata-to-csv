@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/Login";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import HomeForm from "./pages/HomeForm";
 // import { useSelector } from "react-redux";
 // import { selectUser } from "./features/userSlice";
 
@@ -18,7 +19,7 @@ function App() {
                <Router>
                     <Routes>
                          <Route path='/' element={user ? <Home /> : <LoginPage />} />
-                         {/* <Route path='/home' element={<Home />} /> */}
+                         <Route path='/home' element={<HomeForm />} />
                          {/* <Route path='/' element={<LoginPage />} /> */}
                     </Routes>
                </Router>

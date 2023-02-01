@@ -559,7 +559,6 @@ const Home = () => {
 
                          <div className="pt-3">
                               <span>
-                                   {" "}
                                    <strong>NB: </strong> If no school, please remove
                                    form
                               </span>
