@@ -1,6 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useFormik } from "formik";
+import { formSchema } from "../schema";
 
 const HomeForm = () => {
      // Context for user data and logout function
@@ -24,7 +25,6 @@ const HomeForm = () => {
                formik.values.jobTitle = ''
                setOtherJob(false)
           }
-          console.log(otherJob);
      }, []);
 
      // Formik hook
@@ -38,17 +38,16 @@ const HomeForm = () => {
                regionOrCity: '',
                dob: '',
                address: "",
+               profilePicture: '',
                employed: "",
                jobTitle: "",
                maritalStatus: "",
                disability: "",
-               schoolAttended: [],
-               profilePicture: '',
-               additionalDocuments: [],
           },
           onSubmit: (values) => {
-               alert(JSON.stringify(values, null, 2));
+               alert(JSON.stringify(values, null, 2) + "\n \n Success!");
           },
+          validationSchema: formSchema
      });
 
      // Helper Functions
@@ -181,6 +180,7 @@ const HomeForm = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.gender}    
                                    >
+                                        <option className="text-sm">Select a gender</option>
                                         <option className="text-sm" value={'male'}>
                                              Male
                                         </option>
@@ -188,6 +188,12 @@ const HomeForm = () => {
                                              Female
                                         </option>
                                    </select>
+                                   {formik.touched.gender &&
+                                             formik.errors.gender && (
+                                                  <span className="text-red-400">
+                                                       {formik.errors.gender}
+                                                  </span>
+                                             )}
                               </div>
                               <div>
                                    <label className="text-lg">
@@ -205,6 +211,7 @@ const HomeForm = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.country}
                                    >
+                                        <option className="text-sm">Select a country</option>
                                         {countries ? (
                                              countries.map((country, index) => (
                                                   <option
@@ -221,6 +228,12 @@ const HomeForm = () => {
                                              </option>
                                         )}
                                    </select>
+                                   {formik.touched.country &&
+                                        formik.errors.country && (
+                                             <span className="text-red-400">
+                                                  {formik.errors.country}
+                                             </span>
+                                        )}
                               </div>
                               <div>
                                    <label className="text-lg">Region/City</label>
@@ -237,45 +250,84 @@ const HomeForm = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.regionOrCity}
                                    />
+                                   {formik.touched.regionOrCity &&
+                                        formik.errors.regionOrCity && (
+                                             <span className="text-red-400">
+                                                  {formik.errors.regionOrCity}
+                                             </span>
+                                        )}
                                    
                               </div>
 
                               <div>
-                                   <label className="text-lg">Date of birth <span className="text-red-600">*</span></label>
+                                   <label className="text-lg">Date of birth</label>
                                    <input
                                         type="date"
-                                        className="p-3 w-full mx-auto border-2 border-blue-400 rounded-lg"
+                                        className={`p-3 w-full mx-auto border-2 rounded-lg ${
+                                             formik.touched.dob &&
+                                             formik.errors.dob
+                                                  ? "border-red-400"
+                                                  : "border-blue-400"
+                                        }`}
                                         name="dob"
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.dob}
                                    />
+                                   {formik.touched.dob &&
+                                        formik.errors.dob && (
+                                             <span className="text-red-400">
+                                                  {formik.errors.dob}
+                                             </span>
+                                        )}
                               </div>
                               <div>
-                                   <label className="text-lg">Address <span className="text-red-600">*</span></label>
+                                   <label className="text-lg">Address</label>
                                    <input
                                         type="text"
-                                        className="p-3 w-full mx-auto border-2 border-blue-400 rounded-lg"
+                                        className={`p-3 w-full mx-auto border-2 rounded-lg ${
+                                             formik.touched.address &&
+                                             formik.errors.address
+                                                  ? "border-red-400"
+                                                  : "border-blue-400"
+                                        }`}
                                         name="address"
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.address}
                                    />
+                                   {formik.touched.address &&
+                                        formik.errors.address && (
+                                             <span className="text-red-400">
+                                                  {formik.errors.address}
+                                             </span>
+                                        )}
                               </div>
                               <div>
                                    <label className="text-lg">Profile Picture</label>
                                    <input
                                         type="file"
-                                        className="p-3 w-full mx-auto border-2 border-blue-400 rounded-lg bg-white"
+                                        className={`p-3 w-full mx-auto border-2 rounded-lg ${
+                                             formik.touched.profilePicture &&
+                                             formik.errors.profilePicture
+                                                  ? "border-red-400"
+                                                  : "border-blue-400"
+                                        }`}
                                         name="profilePicture"
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.profilePicture}
                                    />
+                                   {formik.touched.profilePicture &&
+                                        formik.errors.profilePicture && (
+                                             <span className="text-red-400">
+                                                  {formik.errors.profilePicture}
+                                             </span>
+                                        )}
                               </div>
 
                               <div>
-                                   <label className="text-lg">Employed? <span className="text-red-600">*</span></label>
+                                   <label className="text-lg">Employed?</label>
                                    <select
                                         className={`p-3 w-full mx-auto border-2 rounded-lg bg-white ${
                                              formik.touched.employed &&
@@ -288,6 +340,7 @@ const HomeForm = () => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.employed}
                                    >
+                                        <option className="text-sm">Are you employed?</option>
                                         <option className="text-sm" value={"no"}>
                                              No
                                         </option>
@@ -295,6 +348,12 @@ const HomeForm = () => {
                                              Yes
                                         </option>
                                    </select>
+                                   {formik.touched.employed &&
+                                        formik.errors.employed && (
+                                             <span className="text-red-400">
+                                                  {formik.errors.employed}
+                                             </span>
+                                        )}
                               </div>
 
                               {/* Conditionally render this form input */}
@@ -303,7 +362,7 @@ const HomeForm = () => {
                                         formik.values.employed === 'yes' ? "block" : "hidden"
                                    } transition-all ease-in-out duration-500`}
                               >
-                                   <label className="text-lg">Job <span className="text-red-600">*</span></label>
+                                   <label className="text-lg">Job</label>
                                    <select
                                         className={`p-3 w-full mx-auto border-2 rounded-lg bg-white ${
                                              formik.touched.otherName &&
@@ -314,23 +373,20 @@ const HomeForm = () => {
                                         name="jobTitle"
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        value={formik.values.employed === 'yes' && formik.values.jobTitle}
+                                        value={formik.values.jobTitle}
                                    >
                                         <option className="text-sm" value={"Doctor"} onClick={()=> {
                                              setOtherJob(false)
-                                             console.log(otherJob);
                                         }}>
                                              Doctor
                                         </option>
                                         <option className="text-sm" value={"Nurse"} onClick={()=> {
                                              setOtherJob(false)
-                                             console.log(otherJob);
                                         }}>
                                              Nurse
                                         </option>
                                         <option className="text-sm" value={''} onClick={()=> {
                                              setOtherJob(true)
-                                             console.log(otherJob);
                                         }}>
                                              Other
                                         </option>
@@ -340,10 +396,10 @@ const HomeForm = () => {
                               {/* There's an issue with this that you have to check */}
                               <div
                                    className={`${
-                                        otherJob ? "block" : "hidden"
+                                        formik.values.employed === 'yes' && otherJob ? "block" : "hidden"
                                    } transition-all ease-in-out duration-300`}
                               >
-                                   <label className="text-lg">Other <span className="text-red-600">*</span></label>
+                                   <label className="text-lg">Other</label>
                                    <input
                                         type="text"
                                         className={`p-3 w-full mx-auto border-2 rounded-lg ${
@@ -355,13 +411,13 @@ const HomeForm = () => {
                                         name="jobTitle"
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        value={formik.values.jobTitle}
+                                        value={formik.values.employed === "no" ? "" : formik.values.jobTitle}
                                    />
                               </div>
                               {/* End of conditional rendering */}
 
                               <div>
-                                   <label className="text-lg">Marital Status <span className="text-red-600">*</span></label>
+                                   <label className="text-lg">Marital Status</label>
                                    <select
                                         className={`p-3 w-full mx-auto border-2 rounded-lg bg-white ${
                                              formik.touched.maritalStatus &&
@@ -375,12 +431,19 @@ const HomeForm = () => {
                                         value={formik.values.maritalStatus}
                                         
                                    >
+                                        <option className="text-sm">Select a marital status</option>
                                         <option className="text-sm" value={'Married'}>Married</option>
                                         <option className="text-sm" value={'Divorced/Separated/Widowed'}>
                                              Divorced/Separated/Widowed
                                         </option>
                                         <option className="text-sm" value={'Never married'}>Never married</option>
                                    </select>
+                                   {formik.touched.maritalStatus &&
+                                        formik.errors.maritalStatus && (
+                                             <span className="text-red-400">
+                                                  {formik.errors.maritalStatus}
+                                             </span>
+                                        )}
                               </div>
 
                               <div>
@@ -399,135 +462,6 @@ const HomeForm = () => {
                                         value={formik.values.disability}
                                    />
                               </div>
-
-                              <div>
-                                   <h2 className="text-lg font-medium mt-5">
-                                        Schools Attended
-                                   </h2>
-                              </div>
-
-                              {/*  */}
-                              <div
-                                   className="lg:grid lg:grid-cols-8 lg:gap-5 lg:space-y-0 space-y-3 bg-sky-200 px-3 py-5 mb-5 rounded-md"
-                              >
-                                   {
-                                        // schoolAttended.length > 0 ? 
-                                        // schoolAttended.map((school, index) => (
-                                        //      <Fragment key={index}>
-                                        //           <div className="lg:col-span-3">
-                                        //                <label className="text-lg">
-                                        //                     School Name
-                                        //                </label>
-                                        //                <input
-                                        //                     type="text"                    
-                                        //                     className={`p-3 w-full mx-auto border-2 rounded-lg bg-white ${
-                                        //                          formik.touched.schoolAttended &&
-                                        //                          formik.errors.schoolAttended
-                                        //                               ? "border-red-400"
-                                        //                               : "border-blue-400"
-                                        //                     }`}
-                                        //                     name="schoolAttended"
-                                        //                     onChange={formik.handleChange}
-                                        //                     onBlur={formik.handleBlur}
-                                        //                     value={formik.values.schoolAttended[index]}
-          
-                                        //                />
-                                        //                {/* <span
-                                        //                     className={`${
-                                        //                          fieldError.schoolAttended
-                                        //                               ? "block text-red-600"
-                                        //                               : "hidden"
-                                        //                     }`}
-                                        //                >
-                                        //                     {error}
-                                        //                </span> */}
-                                                       
-                                        //           </div>
-                                        //           <div className="lg:col-span-2">
-                                        //                <label className="text-lg">Start date</label>
-                                        //                <input
-                                        //                     type="date"
-                                        //                     className="p-3 w-full mx-auto border-2 border-blue-400 rounded-lg"
-                                        //                     // onChange={e => handleFormChange(index, e)}
-                                        //                />
-                                        //           </div>
-                                        //           <div className="lg:col-span-2">
-                                        //                <label className="text-lg">End date</label>
-                                        //                <input
-                                        //                     type="date"
-                                        //                     className="p-3 w-full mx-auto border-2 border-blue-400 rounded-lg"
-                                        //                     // onChange={e => handleFormChange(index, e)}
-                                        //                />
-                                        //           </div>
-                                        //           <div className="lg:col-span-1">
-                                        //                <label className="lg:invisible hidden lg:block">
-                                        //                     Remove
-                                        //                </label>
-                                        //                <button
-                                        //                     className="hidden lg:w-5 lg:h-5 bg-red-500 lg:p-3 lg:mx-auto lg:my-5 lg:rounded-full lg:flex lg:items-center lg:justify-center text-white font-semibold text-lg"
-                                        //                     onClick={() => removeSchool(index)}
-                                        //                >
-                                        //                     -
-                                        //                </button>
-                                        //                <button
-                                        //                     className="lg:hidden p-2 bg-red-500 rounded-lg flex items-center justify-center text-white font-normal"
-                                        //                     onClick={() => removeSchool(index)}
-                                        //                >
-                                        //                     Remove
-                                        //                </button>
-                                        //           </div>
-                                        //      </Fragment>
-                                        // )) : 
-                                        // <h2 className="text-lg col-span-8">Click on button ⬇️ and fill form with school details</h2>
-                                   }
-                                   {/* troppersleague.com */}
-                              </div>
-                              <div className="pt-3">
-                                   <span>
-                                        <strong>NB: </strong> If no school, please remove
-                                        form
-                                   </span>
-                              </div>
-                              <div>
-                                   <button
-                                        className="py-3 px-8 mx-auto border-2 rounded-lg bg-sky-600 text-white"
-                                        onClick={addSchool}
-                                   >
-                                        Add another school
-                                   </button>
-                              </div>
-
-                              <div>
-                                   <label className="text-lg">
-                                        Additional documents
-                                        <span className="text-xs lg:text-sm">
-                                             (could include birth certifcate and other
-                                             relevant IDs)
-                                        </span>
-                                   </label>
-                                   <input
-                                        type="file"
-                                        multiple
-                                        className={`p-3 w-full mx-auto border-2 rounded-lg bg-white ${
-                                             formik.touched.additionalDocuments &&
-                                             formik.errors.additionalDocuments
-                                                  ? "border-red-400"
-                                                  : "border-blue-400"
-                                        }`}
-                                        name="additionalDocuments"
-                                        onChange={formik.handleChange}
-                                        onBlur={formik.handleBlur}
-                                        value={formik.values.additionalDocuments}
-                                   />
-                                   <div className="pt-3">
-                                        <span className="text-sm">
-                                             <strong>NB: </strong> You can select multiple
-                                             files. Please do well to select all before
-                                             closing the pop-up window
-                                        </span>
-                                   </div>
-                              </div>
-
 
                               {/* Button div */}
                               <div>

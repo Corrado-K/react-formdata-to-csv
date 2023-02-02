@@ -18,9 +18,9 @@ function App() {
           <div>
                <Router>
                     <Routes>
-                         <Route path='/' element={user ? <Home /> : <LoginPage />} />
-                         <Route path='/home' element={<HomeForm />} />
-                         {/* <Route path='/' element={<LoginPage />} /> */}
+                         <Route path='/' element={user ? <HomeForm /> : <LoginPage />} /> {/* This uses formik, yup and context */}
+                         <Route path='/home' element={<Home />} /> {/* This route uses contains the form without formik and yup */}
+                         
                     </Routes>
                </Router>
           </div>
