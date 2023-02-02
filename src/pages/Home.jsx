@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router";
 // import { useDispatch, useSelector } from "react-redux";
 // import { logout, selectUser } from '../features/userSlice'
 
@@ -85,6 +86,10 @@ const Home = () => {
                     setCountries(data);
                     console.log(data);
                });
+
+               if (!user) {
+                    navigate("/login");
+               }
      }, []);
 
      // check if the length of text fields are more than 3 digits
@@ -177,6 +182,8 @@ const Home = () => {
      };
 
      // const dispatch = useDispatch()
+
+     const navigate = useNavigate()
 
      const handleLogout= (e) => {
           e.preventDefault()

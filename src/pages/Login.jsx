@@ -2,23 +2,31 @@ import { useContext } from "react";
 import { useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
-import { json } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const LoginPage = () => {
 
-     const { login } = useContext(AuthContext)
+     const { login, user } = useContext(AuthContext)
 
      const [loginData, setLoginData] = useState({
           username:"",
           password:""
      })
 
+     const navigate = useNavigate()
+
      const handleSubmit = (e) => {
           e.preventDefault()
           
           login(loginData)
      }
+
+     useEffect(() => {
+          if (user) {
+               navigate("/");
+          }
+     }, []);
 
      // console.log(user);
      // console.log(JSON.parse(localStorage.getItem('user')));
