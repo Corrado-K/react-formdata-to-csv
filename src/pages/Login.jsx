@@ -26,12 +26,7 @@ const LoginPage = () => {
           if (user) {
                navigate("/");
           }
-     }, []);
-
-     // console.log(user);
-     // console.log(JSON.parse(localStorage.getItem('user')));
-
-    
+     }, []);    
           
      return ( 
           <div className="w-screen h-screen grid grid-cols-2">
