@@ -18,8 +18,6 @@ function App() {
                <Router>
                     <Routes>
                          <Route path='/' element={user ? <Home /> : <LoginPage />} />
-                         {/* <Route path='/home' element={<Home />} /> */}
-                         {/* <Route path='/' element={<LoginPage />} /> */}
                     </Routes>
                </Router>
           </div>
